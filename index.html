@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ベビーカステラFC収益シミュレーター</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f0f8ff;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>ベビーカステラFC 収益シミュレーター</h1>
+
+  <label>客単価（円）<input type="number" id="unitPrice" value="350"></label>
+  <label>1日あたりの客数<input type="number" id="customersPerDay" value="150"></label>
+  <label>営業日数/月<input type="number" id="daysPerMonth" value="30"></label>
+  <label>原価率（％）<input type="number" id="costRate" value="30"></label>
+  <label>人件費/月（万円）<input type="number" id="laborCost" value="25"></label>
+  <label>家賃/月（万円）<input type="number" id="rent" value="15"></label>
+  <label>その他経費/月（万円）<input type="number" id="otherCost" value="5"></label>
+  <label>ロイヤリティ設定：
+    <select id="royaltyType">
+      <option value="fixed">固定（12万円）</option>
+      <option value="percentage">売上10%</option>
+    </select>
+  </label>
+  <label>初期投資（万円）<input type="number" id="initialInvestment" value="600"></label>
+
+  <button onclick="calculate()">シミュレーション実行</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculate() {
+      const unitPrice = Number(document.getElementById("unitPrice").value);
+      const customersPerDay = Number(document.getElementById("customersPerDay").value);
+      const daysPerMonth = Number(document.getElementById("daysPerMonth").value);
+      const costRate = Number(document.getElementById("costRate").value) / 100;
+      const laborCost = Number(document.getElementById("laborCost").value);
+      const rent = Number(document.getElementById("rent").value);
+      const otherCost = Number(document.getElementById("otherCost").value);
+      const royaltyType = document.getElementById("royaltyType").value;
+      const initialInvestment = Number(document.getElementById("initialInvestment").value);
+
+      // 月間売上
+      const monthlySales = unitPrice * customersPerDay * daysPerMonth;
+
+      // 原価
+      const cost = monthlySales * costRate;
+
+      // ロイヤリティ
+      let royalty = 0;
+      if (royaltyType === "fixed") {
+        royalty = 12 * 10000;
+      } else {
+        royalty = monthlySales * 0.10;
+      }
+
+      // 経費合計
+      const totalExpenses = cost + laborCost * 10000 + rent * 10000 + otherCost * 10000 + royalty;
+
+      // 営業利益
+      const profit = monthlySales - totalExpenses;
+
+      // 回収期間（月）
+      const paybackMonths = profit > 0 ? (initialInvestment * 10000) / profit : "計算不可";
+
+      // 表示
+      const resultHTML = `
+        <h2>結果</h2>
+        <p><strong>月間売上：</strong> ${monthlySales.toLocaleString()}円</p>
+        <p><strong>原価：</strong> ${cost.toLocaleString()}円</p>
+        <p><strong>人件費：</strong> ${laborCost * 10000}円</p>
+        <p><strong>家賃：</strong> ${rent * 10000}円</p>
+        <p><strong>その他経費：</strong> ${otherCost * 10000}円</p>
+        <p><strong>ロイヤリティ：</strong> ${royalty.toLocaleString()}円</p>
+        <p><strong>営業利益：</strong> <span style="color: green;">${profit.toLocaleString()}円</span></p>
+        <p><strong>投資回収期間：</strong> ${typeof paybackMonths === 'number' ? paybackMonths.toFixed(1) + 'ヶ月' : paybackMonths}</p>
+      `;
+      document.getElementById("result").innerHTML = resultHTML;
+    }
+  </script>
+</body>
+</html>
