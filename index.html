@@ -3,147 +3,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>町内会費 PayPay 決済手順</title>
+  <title>町内会費 PayPay 決済手順（簡易版）</title>
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
-    .container { max-width: 600px; margin: auto; padding: 16px; background: #fff; }
-    h1 { text-align: center; font-size: 24px; margin-bottom: 24px; }
-    ol { padding-left: 20px; }
-    li { margin-bottom: 24px; font-size: 16px; line-height: 1.5; }
-    figure { margin: 12px 0; }
-    img { width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; }
-    figcaption { font-size: 14px; color: #555; text-align: center; margin-top: 4px; }
-    .note { font-size: 14px; color: #888; }
-    .toggle-container { text-align: center; margin: 16px 0; }
-    .toggle-button { display: inline-block; padding: 8px 16px; margin: 0 4px; border: 1px solid #007bff; border-radius: 4px; cursor: pointer; color: #007bff; }
-    .toggle-button.selected { background: #007bff; color: #fff; }
-    .hidden { display: none; }
+    body {
+      font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    .step {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-left: 4px solid #007bff;
+    }
+    .step-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: #007bff;
+      color: white;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    .step-title {
+      font-size: 18px;
+      font-weight: bold;
+      display: inline-block;
+      margin: 0;
+    }
+    .step-content {
+      margin-top: 15px;
+      margin-left: 40px;
+    }
+    .tabs {
+      display: flex;
+      margin: 20px 0;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 16px;
+    }
+    .tab.active {
+      background: #007bff;
+      color: white;
+    }
+    .tab-content {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 0 8px 8px 8px;
+      margin-bottom: 20px;
+    }
+    .panel {
+      display: none;
+    }
+    .panel.active {
+      display: block;
+    }
+    img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    .caption {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .note {
+      background: #fff9e6;
+      border-left: 4px solid #ffcc00;
+      padding: 15px;
+      margin: 20px 0;
+      font-size: 15px;
+    }
+    .action-btn {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 30px auto;
+      padding: 15px;
+      background: #00a984;
+      color: white;
+      text-align: center;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    }
+    .final-note {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>町内会費をPayPayで支払う手順</h1>
-    <ol>
-      <li>
-        <strong>支払いページを開く</strong><br>
-        PayPayアプリで支払い用のリンクを開くと、次のホーム画面が表示されます。<br>
-        <figure>
-          <img src="1.png" alt="ホーム画面">
-          <figcaption>図1: ホーム画面</figcaption>
-        </figure>
-      </li>
-      <li>
-        <strong>「メッセージを書く」をタップ</strong><br>
-        画面下部の「メッセージを書く」ボタンをタップします。<br>
-        <figure>
-          <img src="2t.png" alt="メッセージを書くタップ位置">
-          <figcaption>図2: タップ箇所の表示</figcaption>
-        </figure>
-      </li>
-      <li>
-        <strong>メッセージ追加画面</strong><br>
-        「メッセージを書く」タップ後に表示される画面です。<br>
-        <figure>
-          <img src="3.png" alt="メッセージ画面">
-          <figcaption>図3: メッセージ追加画面</figcaption>
-        </figure>
-        次に「メッセージを追加する」をタップします。<br>
-        <figure>
-          <img src="3t.png" alt="メッセージを追加するタップ位置">
-          <figcaption>図4: メッセージ追加タップ位置</figcaption>
-        </figure>
-      </li>
-      <li>
-        <strong>居住形態切替</strong><br>
-        アパート等居住者／戸建て世帯主を切り替えて、入力手順を確認できます。
-        <div class="toggle-container">
-          <span id="btnApt" class="toggle-button selected">アパート等居住者</span>
-          <span id="btnHouse" class="toggle-button">戸建て世帯主</span>
+    
+    <div class="step">
+      <span class="step-number">1</span>
+      <h2 class="step-title">支払いページを開く</h2>
+      <div class="step-content">
+        <p>PayPayアプリで支払い用のリンクを開くと、下図のようなホーム画面が表示されます。</p>
+        <img src="1.png" alt="ホーム画面">
+        <p class="caption">ホーム画面</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">2</span>
+      <h2 class="step-title">メッセージを書く</h2>
+      <div class="step-content">
+        <p>画面下部の「メッセージを書く」ボタンをタップします。</p>
+        <img src="2t.png" alt="メッセージを書くタップ位置">
+        <p class="caption">「メッセージを書く」をタップ</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">3</span>
+      <h2 class="step-title">メッセージを追加する</h2>
+      <div class="step-content">
+        <p>次の画面で「メッセージを追加する」をタップします。</p>
+        <img src="3.png" alt="メッセージ画面">
+        <p class="caption">メッセージ追加画面</p>
+        <img src="3t.png" alt="メッセージを追加するタップ位置">
+        <p class="caption">「メッセージを追加する」をタップ</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">4</span>
+      <h2 class="step-title">お住まいの種類に応じて情報を入力</h2>
+      <div class="step-content">
+        <div class="tabs">
+          <button class="tab active" onclick="openTab(event, 'apartment')">アパート等居住者</button>
+          <button class="tab" onclick="openTab(event, 'house')">戸建て世帯主</button>
         </div>
-      </li>
-      <!-- アパート等居住者フロー -->
-      <li class="flow apt">
-        <strong>情報を入力（アパート等居住者）</strong><br>
-        物件名と号数、氏名を入力します。<br>
-        <figure>
+        
+        <div id="apartment" class="panel active">
+          <h3>アパート等居住者の方</h3>
+          <p>物件名と号数、氏名を入力します。</p>
           <img src="4-1.png" alt="アパート居住者入力例">
-          <figcaption>図5: アパート居住者の入力例</figcaption>
-        </figure>
-        タップ位置はこちら：
-        <figure>
+          <p class="caption">アパート居住者の入力例</p>
           <img src="4-1t.png" alt="アパート入力タップ位置">
-          <figcaption>図6: アパート入力タップ位置</figcaption>
-        </figure>
-      </li>
-      <li class="flow apt">
-        <strong>最終確認画面（アパート）</strong><br>
-        入力後に最終確認画面が表示されます。<br>
-        <figure>
+          <p class="caption">入力欄をタップして情報を入力</p>
+          
+          <div class="note">
+            <p>入力例：城西アパート 101号 石巻 太郎</p>
+          </div>
+          
+          <h3>最終確認画面</h3>
+          <p>入力した内容を確認します。</p>
           <img src="5-1.png" alt="アパート最終画面">
-          <figcaption>図7: アパート居住者向け最終画面</figcaption>
-        </figure>
-      </li>
-      <li class="flow apt">
-        <strong>「3600円を送る」をタップ（アパート）</strong><br>
-        下部の送金ボタンをタップします。<br>
-        <figure>
+          <p class="caption">確認画面</p>
+          
+          <p>問題なければ「3600円を送る」ボタンをタップします。</p>
           <img src="5-1t.png" alt="アパート3600円タップ位置">
-          <figcaption>図8: アパート送金ボタンタップ位置</figcaption>
-        </figure>
-      </li>
-      <!-- 戸建て世帯主フロー -->
-      <li class="flow house hidden">
-        <strong>情報を入力（戸建て世帯主）</strong><br>
-        氏名を入力します。<br>
-        <figure>
+          <p class="caption">「3600円を送る」をタップ</p>
+        </div>
+        
+        <div id="house" class="panel">
+          <h3>戸建て世帯主の方</h3>
+          <p>氏名を入力します。</p>
           <img src="4-2.png" alt="戸建て世帯主入力例">
-          <figcaption>図9: 戸建て世帯主の入力例</figcaption>
-        </figure>
-        タップ位置はこちら：
-        <figure>
+          <p class="caption">戸建て世帯主の入力例</p>
           <img src="4-2t.png" alt="戸建て入力タップ位置">
-          <figcaption>図10: 戸建て入力タップ位置</figcaption>
-        </figure>
-      </li>
-      <li class="flow house hidden">
-        <strong>最終確認画面（戸建て）</strong><br>
-        入力後に最終確認画面が表示されます。<br>
-        <figure>
+          <p class="caption">入力欄をタップして情報を入力</p>
+          
+          <div class="note">
+            <p>入力例：石巻 太郎</p>
+          </div>
+          
+          <h3>最終確認画面</h3>
+          <p>入力した内容を確認します。</p>
           <img src="5-2.png" alt="戸建て最終画面">
-          <figcaption>図11: 戸建て向け最終画面</figcaption>
-        </figure>
-      </li>
-      <li class="flow house hidden">
-        <strong>「3600円を送る」をタップ（戸建て）</strong><br>
-        下部の送金ボタンをタップします。<br>
-        <figure>
+          <p class="caption">確認画面</p>
+          
+          <p>問題なければ「3600円を送る」ボタンをタップします。</p>
           <img src="5-2t.png" alt="戸建て3600円タップ位置">
-          <figcaption>図12: 戸建て送金ボタンタップ位置</figcaption>
-        </figure>
-      </li>
-      <li>
-        <strong>領収書投函のお願い</strong><br>
-        <p class="note">集金担当者が後日ポストに投函します。</p>
-      </li>
-    </ol>
+          <p class="caption">「3600円を送る」をタップ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-number">5</span>
+      <h2 class="step-title">完了</h2>
+      <div class="step-content">
+        <p>お支払いが完了しました。集金担当者が後日、領収書をポストに投函します。</p>
+      </div>
+    </div>
+
+    <a href="https://qr.paypay.ne.jp/p2p01_qlGKCaiSgtRyR7Tz" class="action-btn">支払い手続きを始める</a>
+    
+    <p class="final-note">※ボタンをタップすると実際の支払い画面に移動します</p>
   </div>
+
   <script>
-    const btnApt = document.getElementById('btnApt');
-    const btnHouse = document.getElementById('btnHouse');
-    const aptItems = document.querySelectorAll('.flow.apt');
-    const houseItems = document.querySelectorAll('.flow.house');
-    btnApt.addEventListener('click', () => {
-      btnApt.classList.add('selected');
-      btnHouse.classList.remove('selected');
-      aptItems.forEach(el => el.classList.remove('hidden'));
-      houseItems.forEach(el => el.classList.add('hidden'));
-    });
-    btnHouse.addEventListener('click', () => {
-      btnHouse.classList.add('selected');
-      btnApt.classList.remove('selected');
-      houseItems.forEach(el => el.classList.remove('hidden'));
-      aptItems.forEach(el => el.classList.add('hidden'));
-    });
+    function openTab(evt, tabName) {
+      // タブコンテンツをすべて非表示
+      var panels = document.getElementsByClassName("panel");
+      for (var i = 0; i < panels.length; i++) {
+        panels[i].classList.remove("active");
+      }
+      
+      // タブボタンのアクティブクラスをすべて削除
+      var tabs = document.getElementsByClassName("tab");
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+      }
+      
+      // クリックされたタブを表示し、ボタンをアクティブに
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
   </script>
 </body>
 </html>
