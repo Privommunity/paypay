@@ -5,192 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>町内会費 PayPay 決済手順</title>
   <style>
-    body {
-      font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f5f5f5;
-      color: #333;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      font-size: 22px;
-      text-align: center;
-      margin-bottom: 20px;
-      color: #333;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #ff6060;
-    }
-    .step {
-      background: #fff;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      border: 1px solid #eee;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    .step-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .step-number {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      background: #ff6060;
-      color: white;
-      text-align: center;
-      border-radius: 50%;
-      margin-right: 10px;
-      font-weight: bold;
-      font-size: 14px;
-    }
-    .step-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #333;
-      margin: 0;
-    }
-    .step-content {
-      padding-left: 36px;
-    }
-    .image-container {
-      display: block;
-      margin: 10px 0;
-      text-align: center;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    .caption {
-      display: block;
-      text-align: center;
-      color: #666;
-      font-size: 13px;
-      margin-top: 5px;
-    }
-    .note {
-      background: #fef9e7;
-      border-left: 3px solid #fcdb6e;
-      padding: 10px 15px;
-      margin: 15px 0;
-      font-size: 14px;
-      border-radius: 4px;
-    }
-    .important {
-      font-weight: bold;
-      color: #e74c3c;
-    }
-    .choice-tabs {
-      display: flex;
-      margin: 15px 0;
-      border-bottom: 1px solid #ddd;
-    }
-    .choice-tab {
-      padding: 8px 15px;
-      background: #f5f5f5;
-      border: 1px solid #ddd;
-      border-bottom: none;
-      border-radius: 6px 6px 0 0;
-      cursor: pointer;
-      margin-right: 5px;
-      font-size: 14px;
-    }
-    .choice-tab.active {
-      background: #fff;
-      border-bottom: 1px solid #fff;
-      margin-bottom: -1px;
-      color: #ff6060;
-      font-weight: bold;
-    }
-    .choice-panel {
-      display: none;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-top: none;
-      border-radius: 0 0 6px 6px;
-    }
-    .choice-panel.active {
-      display: block;
-    }
-    .action-btn {
-      display: block;
-      width: 80%;
-      max-width: 300px;
-      margin: 25px auto;
-      padding: 15px;
-      background: #ff6060;
-      color: white;
-      text-align: center;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-    }
-    .action-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 8px rgba(0,0,0,0.15);
-      background: #ff4c4c;
-    }
-    .final-note {
-      text-align: center;
-      margin-top: 15px;
-      color: #666;
-      font-size: 14px;
-    }
-    /* Modal styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 90%;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-    .modal-content p {
-      margin-bottom: 20px;
-      font-size: 16px;
-      color: #333;
-    }
-    .modal-close {
+    body { font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; margin: 0; padding: 0; background: #f5f5f5; color: #333; line-height: 1.6; }
+    .container { max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { font-size: 22px; text-align: center; margin-bottom: 20px; color: #333; padding-bottom: 10px; border-bottom: 2px solid #ff6060; }
+    .step { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid #eee; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .step-header { display: flex; align-items: center; margin-bottom: 10px; }
+    .step-number { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: #ff6060; color: white; border-radius: 50%; margin-right: 10px; font-weight: bold; font-size: 14px; }
+    .step-title { font-size: 18px; font-weight: bold; color: #333; margin: 0; }
+    .step-content { padding-left: 36px; }
+    .image-container { display: block; margin: 10px 0; text-align: center; }
+    img { max-width: 100%; height: auto; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .caption { display: block; text-align: center; color: #666; font-size: 13px; margin-top: 5px; }
+    .note { background: #fef9e7; border-left: 3px solid #fcdb6e; padding: 10px 15px; margin: 15px 0; font-size: 14px; border-radius: 4px; }
+    .important { font-weight: bold; color: #e74c3c; }
+    .choice-tabs { display: flex; margin: 15px 0; border-bottom: 1px solid #ddd; }
+    .choice-tab { padding: 8px 15px; background: #f5f5f5; border: 1px solid #ddd; border-bottom: none; border-radius: 6px 6px 0 0; cursor: pointer; margin-right: 5px; font-size: 14px; }
+    .choice-tab.active { background: #fff; border-bottom: 1px solid #fff; margin-bottom: -1px; color: #ff6060; font-weight: bold; }
+    .choice-panel { display: none; padding: 15px; border: 1px solid #ddd; border-top: none; border-radius: 0 0 6px 6px; }
+    .choice-panel.active { display: block; }
+    .action-btn { display: block; width: 80%; max-width: 300px; margin: 25px auto; padding: 15px; background: #ff6060; color: white; text-align: center; border-radius: 50px; font-size: 18px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(0,0,0,0.15); background: #ff4c4c; }
+    /* Improved inline buttons */
+    .inline-btn {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 6px 16px;
       background: #ff6060;
-      color: white;
+      color: #fff;
       border: none;
-      border-radius: 4px;
-      cursor: pointer;
+      border-radius: 20px;
       font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      margin: 0 4px;
     }
+    .inline-btn-pink {
+      display: inline-block;
+      padding: 6px 16px;
+      background: #fff0f0;
+      color: #ff6060;
+      border: 1px solid #ff6060;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin: 0 4px;
+    }
+    .final-note { text-align: center; margin-top: 15px; color: #666; font-size: 14px; }
+    /* Modal styles */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content { background: white; padding: 20px; border-radius: 8px; max-width: 90%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); text-align: center; }
+    .modal-content p { margin-bottom: 20px; font-size: 16px; color: #333; }
+    .modal-close { display: inline-block; padding: 10px 20px; background: #ff6060; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
   </style>
 </head>
 <body>
@@ -204,7 +69,7 @@
 
   <div class="container">
     <h1>町内会費をPayPayで支払う方法</h1>
-    
+
     <div class="step">
       <div class="step-header">
         <div class="step-number">1</div>
@@ -225,7 +90,7 @@
         <h2 class="step-title">メッセージを書く</h2>
       </div>
       <div class="step-content">
-        <p>「メッセージを書く」ボタンをタップします</p>
+        <p><span class="inline-btn-pink">メッセージを書く</span>をタップします</p>
         <div class="image-container">
           <img src="2t.png" alt="メッセージを書くタップ位置">
           <span class="caption">図2: メッセージを書くタップ位置</span>
@@ -282,7 +147,7 @@
         <h2 class="step-title">メッセージを追加する</h2>
       </div>
       <div class="step-content">
-        <p>青い「メッセージを追加する」ボタンをタップします</p>
+        <p> <span class="inline-btn">メッセージを追加する</span> をタップします</p>
         <div class="image-container">
           <img src="4-1t.png" alt="メッセージを追加するタップ位置">
           <span class="caption">図6: メッセージを追加するタップ位置</span>
@@ -296,7 +161,7 @@
         <h2 class="step-title">支払いを確定する</h2>
       </div>
       <div class="step-content">
-        <p>内容を確認し、青い「3600円を送る」ボタンをタップして支払い完了</p>
+        <p>内容を確認し、<span class="inline-btn">3600円を送る</span>をタップして支払い完了</p>
         <div class="image-container">
           <img src="5-1t.png" alt="支払い確定タップ位置">
           <span class="caption">図7: 支払い確定タップ位置</span>
@@ -312,26 +177,8 @@
   </div>
 
   <script>
-    // モーダルの表示・非表示
-    window.onload = function() {
-      var modal = document.getElementById('modal');
-      var closeBtn = document.getElementById('modalClose');
-      // モーダルを表示
-      modal.style.display = 'flex';
-      // 閉じるボタン
-      closeBtn.onclick = function() {
-        modal.style.display = 'none';
-      };
-    };
-    // タブ切替
-    function openChoice(evt, choiceName) {
-      var panels = document.getElementsByClassName("choice-panel");
-      for (var i = 0; i < panels.length; i++) panels[i].classList.remove("active");
-      var tabs = document.getElementsByClassName("choice-tab");
-      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
-      document.getElementById(choiceName).classList.add("active");
-      evt.currentTarget.classList.add("active");
-    }
+    window.onload = function() { var modal = document.getElementById('modal'), closeBtn = document.getElementById('modalClose'); modal.style.display = 'flex'; closeBtn.onclick = function() { modal.style.display = 'none'; }; };
+    function openChoice(evt, choiceName) { var panels = document.getElementsByClassName("choice-panel"); for (var i=0; i<panels.length; i++) panels[i].classList.remove("active"); var tabs = document.getElementsByClassName("choice-tab"); for (var i=0; i<tabs.length; i++) tabs[i].classList.remove("active"); document.getElementById(choiceName).classList.add("active"); evt.currentTarget.classList.add("active"); }
   </script>
 </body>
 </html>
