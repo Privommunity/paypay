@@ -196,7 +196,7 @@
       <div class="step-content">
         <p>「メッセージを書く」ボタンをタップします</p>
         <div class="image-container hint">
-          <img src="2.png" alt="メッセージを書くボタン">
+          <img src="image2.png" alt="メッセージを書くボタン" onError="this.onerror=null; this.src='2.png';">
           <span class="caption">「メッセージを書く」をここでタップ</span>
         </div>
       </div>
@@ -210,7 +210,7 @@
       <div class="step-content">
         <p>表示された赤い画面の入力欄をタップします</p>
         <div class="image-container hint">
-          <img src="3.png" alt="メッセージ入力欄">
+          <img src="image3.png" alt="メッセージ入力欄" onError="this.onerror=null; this.src='3.png';">
           <span class="caption">入力欄をタップ</span>
         </div>
       </div>
@@ -234,7 +234,7 @@
             例：恵み野アパート101号 石巻太郎
           </div>
           <div class="image-container">
-            <img src="5.png" alt="アパート入力例">
+            <img src="image5.png" alt="アパート入力例" onError="this.onerror=null; this.src='5.png';">
             <span class="caption">入力例（アパート居住者）</span>
           </div>
         </div>
@@ -246,7 +246,7 @@
             例：石巻太郎
           </div>
           <div class="image-container">
-            <img src="7.png" alt="戸建て入力例">
+            <img src="image7.png" alt="戸建て入力例" onError="this.onerror=null; this.src='7.png';">
             <span class="caption">入力例（戸建て世帯主）</span>
           </div>
         </div>
@@ -261,7 +261,7 @@
       <div class="step-content">
         <p>青い「メッセージを追加する」ボタンをタップします</p>
         <div class="image-container hint">
-          <img src="6.png" alt="メッセージを追加するボタン">
+          <img src="image6.png" alt="メッセージを追加するボタン" onError="this.onerror=null; this.src='6.png';">
           <span class="caption">「メッセージを追加する」をタップ</span>
         </div>
       </div>
@@ -275,7 +275,7 @@
       <div class="step-content">
         <p>内容を確認し、青い「3,600円を送る」ボタンをタップして支払いを完了します</p>
         <div class="image-container hint">
-          <img src="10.png" alt="支払い確定画面">
+          <img src="image10.png" alt="支払い確定画面" onError="this.onerror=null; this.src='10.png';">
           <span class="caption">「3,600円を送る」をタップ</span>
         </div>
         <div class="note">
@@ -307,6 +307,28 @@
       document.getElementById(choiceName).classList.add("active");
       evt.currentTarget.classList.add("active");
     }
+    
+    // 画像の読み込みエラー処理を追加
+    window.onload = function() {
+      var images = document.getElementsByTagName('img');
+      for (var i = 0; i < images.length; i++) {
+        // すでにエラーハンドラが設定されている場合はスキップ
+        if (!images[i].hasAttribute('onerror')) {
+          // 数字のみのファイル名をフォールバックとして試みる
+          var imgSrc = images[i].src;
+          var fileName = imgSrc.split('/').pop();
+          var numberOnly = fileName.replace(/[^0-9]/g, '');
+          
+          images[i].onerror = function() {
+            this.onerror = null;
+            var currentSrc = this.src;
+            var fileName = currentSrc.split('/').pop();
+            var numberOnly = fileName.replace(/[^0-9]/g, '');
+            this.src = numberOnly + '.png';
+          };
+        }
+      }
+    };
   </script>
 </body>
 </html>
