@@ -25,31 +25,9 @@
     .choice-panel.active { display: block; }
     .action-btn { display: block; width: 80%; max-width: 300px; margin: 25px auto; padding: 15px; background: #ff6060; color: white; text-align: center; border-radius: 50px; font-size: 18px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
     .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(0,0,0,0.15); background: #ff4c4c; }
-    /* Improved inline buttons */
-    .inline-btn {
-      display: inline-block;
-      padding: 6px 16px;
-      background: #ff6060;
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-      margin: 0 4px;
-    }
-    .inline-btn-pink {
-      display: inline-block;
-      padding: 6px 16px;
-      background: #fff0f0;
-      color: #ff6060;
-      border: 1px solid #ff6060;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin: 0 4px;
-    }
+    /* Inline buttons */
+    .inline-btn-blue { display: inline-block; padding: 6px 16px; background: #007bff; color: #fff; border: none; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin: 0 4px; }
+    .inline-btn-pink { display: inline-block; padding: 6px 16px; background: #fff0f0; color: #ff6060; border: 1px solid #ff6060; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 4px; }
     .final-note { text-align: center; margin-top: 15px; color: #666; font-size: 14px; }
     /* Modal styles */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
@@ -90,7 +68,7 @@
         <h2 class="step-title">メッセージを書く</h2>
       </div>
       <div class="step-content">
-        <p><span class="inline-btn-pink">メッセージを書く</span>をタップします</p>
+        <p>「<span class="inline-btn-pink">メッセージを書く</span>」ボタンをタップします</p>
         <div class="image-container">
           <img src="2t.png" alt="メッセージを書くタップ位置">
           <span class="caption">図2: メッセージを書くタップ位置</span>
@@ -147,7 +125,7 @@
         <h2 class="step-title">メッセージを追加する</h2>
       </div>
       <div class="step-content">
-        <p> <span class="inline-btn">メッセージを追加する</span> をタップします</p>
+        <p>青い <span class="inline-btn-blue">メッセージを追加する</span> ボタンをタップします</p>
         <div class="image-container">
           <img src="4-1t.png" alt="メッセージを追加するタップ位置">
           <span class="caption">図6: メッセージを追加するタップ位置</span>
@@ -161,7 +139,7 @@
         <h2 class="step-title">支払いを確定する</h2>
       </div>
       <div class="step-content">
-        <p>内容を確認し、<span class="inline-btn">3600円を送る</span>をタップして支払い完了</p>
+        <p>内容を確認し、<span class="inline-btn-blue">3600円を送る</span>ボタンをタップして支払い完了</p>
         <div class="image-container">
           <img src="5-1t.png" alt="支払い確定タップ位置">
           <span class="caption">図7: 支払い確定タップ位置</span>
