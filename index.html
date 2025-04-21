@@ -3,645 +3,147 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ベビーカステラFC収益シミュレーター</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <title>町内会費 PayPay 決済手順</title>
   <style>
-    :root {
-      --primary: #ff9500;
-      --primary-light: #fff0d9;
-      --primary-dark: #e67700;
-      --secondary: #4a6fa1;
-      --text: #333333;
-      --text-light: #666666;
-      --background: #ffffff;
-      --background-alt: #f8f9fa;
-      --border: #e0e0e0;
-      --success: #28a745;
-      --danger: #dc3545;
-      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --radius: 8px;
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background-color: var(--background-alt);
-      padding: 0;
-      margin: 0;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    header {
-      background-color: var(--primary);
-      color: white;
-      padding: 20px 0;
-      margin-bottom: 30px;
-      box-shadow: var(--shadow);
-    }
-
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    .card {
-      background: var(--background);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      margin-bottom: 30px;
-      transition: var(--transition);
-    }
-
-    .card:hover {
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-      transform: translateY(-5px);
-    }
-
-    .card-header {
-      background-color: var(--primary-light);
-      padding: 15px 20px;
-      border-bottom: 1px solid var(--border);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .card-body {
-      padding: 20px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px 15px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.2);
-    }
-
-    .input-group {
-      position: relative;
-    }
-
-    .input-group input {
-      padding-right: 40px;
-    }
-
-    .input-group-append {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-light);
-    }
-
-    button {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: var(--radius);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    button:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 15px;
-    }
-
-    .result-item {
-      background: var(--background-alt);
-      padding: 15px;
-      border-radius: var(--radius);
-      border-left: 4px solid var(--primary);
-    }
-
-    .result-item.highlight {
-      border-left-color: var(--success);
-      background-color: rgba(40, 167, 69, 0.1);
-    }
-
-    .result-item h3 {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      margin-bottom: 5px;
-    }
-
-    .result-item p {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-
-    .result-item.highlight p {
-      color: var(--success);
-    }
-
-    .profit-chart {
-      height: 10px;
-      background-color: #e9ecef;
-      border-radius: 5px;
-      margin-top: 10px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .profit-bar {
-      height: 100%;
-      background-color: var(--success);
-      width: 0;
-      transition: width 1s ease-out;
-    }
-
-    .negative {
-      background-color: var(--danger);
-    }
-
-    .payback-visual {
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-    }
-
-    .payback-months {
-      display: flex;
-      flex-grow: 1;
-      height: 8px;
-      background-color: #e9ecef;
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 0 10px;
-    }
-
-    .payback-progress {
-      height: 100%;
-      width: 0;
-      background-color: var(--primary);
-      transition: width 1s ease-out;
-    }
-
-    @media (max-width: 768px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .results-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .results-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .loading {
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-    
-    .hidden {
-      display: none;
-    }
-    
-    .result-summary {
-      font-size: 1.3rem;
-      text-align: center;
-      margin: 20px 0;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .tooltip {
-      position: relative;
-      display: inline-block;
-      margin-left: 5px;
-      color: var(--text-light);
-    }
-
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 200px;
-      background-color: #555;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -100px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      font-weight: normal;
-      font-size: 0.85rem;
-    }
-
-    .tooltip .tooltiptext::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: #555 transparent transparent transparent;
-    }
-
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
+    .container { max-width: 600px; margin: auto; padding: 16px; background: #fff; }
+    h1 { text-align: center; font-size: 24px; margin-bottom: 24px; }
+    ol { padding-left: 20px; }
+    li { margin-bottom: 24px; font-size: 16px; line-height: 1.5; }
+    figure { margin: 12px 0; }
+    img { width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; }
+    figcaption { font-size: 14px; color: #555; text-align: center; margin-top: 4px; }
+    .note { font-size: 14px; color: #888; }
+    .toggle-container { text-align: center; margin: 16px 0; }
+    .toggle-button { display: inline-block; padding: 8px 16px; margin: 0 4px; border: 1px solid #007bff; border-radius: 4px; cursor: pointer; color: #007bff; }
+    .toggle-button.selected { background: #007bff; color: #fff; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1><i class="fas fa-store"></i> ベビーカステラFC 収益シミュレーター</h1>
-    </div>
-  </header>
-
   <div class="container">
-    <div class="card">
-      <div class="card-header">
-        <i class="fas fa-cogs"></i> シミュレーション設定
-      </div>
-      <div class="card-body">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="unitPrice">
-              客単価
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">お客様1人あたりの平均購入金額</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="unitPrice" value="350" min="0" step="10">
-              <div class="input-group-append">円</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="customersPerDay">
-              1日あたりの客数
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">1日の平均来店者数</span>
-              </span>
-            </label>
-            <input type="number" id="customersPerDay" value="150" min="0" step="1">
-          </div>
-          <div class="form-group">
-            <label for="daysPerMonth">
-              営業日数/月
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">1ヶ月の営業日数</span>
-              </span>
-            </label>
-            <input type="number" id="daysPerMonth" value="30" min="0" max="31" step="1">
-          </div>
-          <div class="form-group">
-            <label for="costRate">
-              原価率
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">売上に対する原材料費の割合</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="costRate" value="30" min="0" max="100" step="1">
-              <div class="input-group-append">%</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="laborCost">
-              人件費/月
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">スタッフの給与、アルバイト代など</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="laborCost" value="25" min="0" step="1">
-              <div class="input-group-append">万円</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="rent">
-              家賃/月
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">店舗の家賃</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="rent" value="15" min="0" step="1">
-              <div class="input-group-append">万円</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="otherCost">
-              その他経費/月
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">水道光熱費、消耗品費など</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="otherCost" value="5" min="0" step="0.5">
-              <div class="input-group-append">万円</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="royaltyType">
-              ロイヤリティ設定
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">フランチャイズ本部へ支払う料金</span>
-              </span>
-            </label>
-            <select id="royaltyType" onchange="toggleRoyaltyInput()">
-              <option value="fixed">固定額（月額）</option>
-              <option value="percentage">売上パーセンテージ</option>
-            </select>
-          </div>
-          
-          <div class="form-group" id="fixedRoyaltyGroup">
-            <label for="fixedRoyalty">
-              固定ロイヤリティ額
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">月額のロイヤリティ固定額</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="fixedRoyalty" value="12" min="0" step="0.5">
-              <div class="input-group-append">万円</div>
-            </div>
-          </div>
-          
-          <div class="form-group" id="percentageRoyaltyGroup" style="display: none;">
-            <label for="percentageRoyalty">
-              ロイヤリティ率
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">売上に対するロイヤリティの割合</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="percentageRoyalty" value="10" min="0" max="100" step="0.1">
-              <div class="input-group-append">%</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="initialInvestment">
-              初期投資
-              <span class="tooltip"><i class="fas fa-info-circle"></i>
-                <span class="tooltiptext">開業時に必要な資金（加盟金・設備投資など）</span>
-              </span>
-            </label>
-            <div class="input-group">
-              <input type="number" id="initialInvestment" value="600" min="0" step="10">
-              <div class="input-group-append">万円</div>
-            </div>
-          </div>
+    <h1>町内会費をPayPayで支払う手順</h1>
+    <ol>
+      <li>
+        <strong>支払いページを開く</strong><br>
+        PayPayアプリで支払い用のリンクを開くと、次のホーム画面が表示されます。<br>
+        <figure>
+          <img src="1.png" alt="ホーム画面">
+          <figcaption>図1: ホーム画面</figcaption>
+        </figure>
+      </li>
+      <li>
+        <strong>「メッセージを書く」をタップ</strong><br>
+        画面下部の「メッセージを書く」ボタンをタップします。<br>
+        <figure>
+          <img src="2t.png" alt="メッセージを書くタップ位置">
+          <figcaption>図2: タップ箇所の表示</figcaption>
+        </figure>
+      </li>
+      <li>
+        <strong>メッセージ追加画面</strong><br>
+        「メッセージを書く」タップ後に表示される画面です。<br>
+        <figure>
+          <img src="3.png" alt="メッセージ画面">
+          <figcaption>図3: メッセージ追加画面</figcaption>
+        </figure>
+        次に「メッセージを追加する」をタップします。<br>
+        <figure>
+          <img src="3t.png" alt="メッセージを追加するタップ位置">
+          <figcaption>図4: メッセージ追加タップ位置</figcaption>
+        </figure>
+      </li>
+      <li>
+        <strong>居住形態切替</strong><br>
+        アパート等居住者／戸建て世帯主を切り替えて、入力手順を確認できます。
+        <div class="toggle-container">
+          <span id="btnApt" class="toggle-button selected">アパート等居住者</span>
+          <span id="btnHouse" class="toggle-button">戸建て世帯主</span>
         </div>
-        <button onclick="calculate()"><i class="fas fa-calculator"></i> シミュレーション実行</button>
-      </div>
-    </div>
-
-    <div class="card" id="resultCard">
-      <div class="card-header">
-        <i class="fas fa-chart-line"></i> シミュレーション結果
-      </div>
-      <div class="card-body">
-        <div id="loadingResults" class="loading hidden">
-          <p>計算中...<i class="fas fa-spinner fa-spin"></i></p>
-        </div>
-        <div id="resultContainer" class="hidden">
-          <div class="result-summary" id="resultSummary"></div>
-          <div class="results-grid" id="resultsGrid"></div>
-          
-          <div class="payback-visual">
-            <span>開始</span>
-            <div class="payback-months">
-              <div class="payback-progress" id="paybackProgress"></div>
-            </div>
-            <span id="paybackTarget">36ヶ月</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      </li>
+      <!-- アパート等居住者フロー -->
+      <li class="flow apt">
+        <strong>情報を入力（アパート等居住者）</strong><br>
+        物件名と号数、氏名を入力します。<br>
+        <figure>
+          <img src="4-1.png" alt="アパート居住者入力例">
+          <figcaption>図5: アパート居住者の入力例</figcaption>
+        </figure>
+        タップ位置はこちら：
+        <figure>
+          <img src="4-1t.png" alt="アパート入力タップ位置">
+          <figcaption>図6: アパート入力タップ位置</figcaption>
+        </figure>
+      </li>
+      <li class="flow apt">
+        <strong>最終確認画面（アパート）</strong><br>
+        入力後に最終確認画面が表示されます。<br>
+        <figure>
+          <img src="5-1.png" alt="アパート最終画面">
+          <figcaption>図7: アパート居住者向け最終画面</figcaption>
+        </figure>
+      </li>
+      <li class="flow apt">
+        <strong>「3600円を送る」をタップ（アパート）</strong><br>
+        下部の送金ボタンをタップします。<br>
+        <figure>
+          <img src="5-1t.png" alt="アパート3600円タップ位置">
+          <figcaption>図8: アパート送金ボタンタップ位置</figcaption>
+        </figure>
+      </li>
+      <!-- 戸建て世帯主フロー -->
+      <li class="flow house hidden">
+        <strong>情報を入力（戸建て世帯主）</strong><br>
+        氏名を入力します。<br>
+        <figure>
+          <img src="4-2.png" alt="戸建て世帯主入力例">
+          <figcaption>図9: 戸建て世帯主の入力例</figcaption>
+        </figure>
+        タップ位置はこちら：
+        <figure>
+          <img src="4-2t.png" alt="戸建て入力タップ位置">
+          <figcaption>図10: 戸建て入力タップ位置</figcaption>
+        </figure>
+      </li>
+      <li class="flow house hidden">
+        <strong>最終確認画面（戸建て）</strong><br>
+        入力後に最終確認画面が表示されます。<br>
+        <figure>
+          <img src="5-2.png" alt="戸建て最終画面">
+          <figcaption>図11: 戸建て向け最終画面</figcaption>
+        </figure>
+      </li>
+      <li class="flow house hidden">
+        <strong>「3600円を送る」をタップ（戸建て）</strong><br>
+        下部の送金ボタンをタップします。<br>
+        <figure>
+          <img src="5-2t.png" alt="戸建て3600円タップ位置">
+          <figcaption>図12: 戸建て送金ボタンタップ位置</figcaption>
+        </figure>
+      </li>
+      <li>
+        <strong>領収書投函のお願い</strong><br>
+        <p class="note">集金担当者が後日ポストに投函します。</p>
+      </li>
+    </ol>
   </div>
-
   <script>
-    // 画面読み込み時に初回計算を実行
-    window.onload = function() {
-      toggleRoyaltyInput();
-      calculate();
-    };
-    
-    // ロイヤリティ入力フィールドの切り替え
-    function toggleRoyaltyInput() {
-      const royaltyType = document.getElementById("royaltyType").value;
-      const fixedGroup = document.getElementById("fixedRoyaltyGroup");
-      const percentageGroup = document.getElementById("percentageRoyaltyGroup");
-      
-      if (royaltyType === "fixed") {
-        fixedGroup.style.display = "block";
-        percentageGroup.style.display = "none";
-      } else {
-        fixedGroup.style.display = "none";
-        percentageGroup.style.display = "block";
-      }
-    };
-
-    function formatCurrency(value) {
-      return value.toLocaleString() + '円';
-    }
-
-    function formatPercentage(value) {
-      return value.toFixed(1) + '%';
-    }
-
-    function formatMonths(value) {
-      if (typeof value !== 'number') return value;
-      return value.toFixed(1) + 'ヶ月';
-    }
-
-    function displayLoading() {
-      document.getElementById('loadingResults').classList.remove('hidden');
-      document.getElementById('resultContainer').classList.add('hidden');
-    }
-
-    function hideLoading() {
-      document.getElementById('loadingResults').classList.add('hidden');
-      document.getElementById('resultContainer').classList.remove('hidden');
-    }
-
-    function calculate() {
-      // 読み込み表示
-      displayLoading();
-      
-      // 演出のために少し遅延
-      setTimeout(() => {
-        const unitPrice = Number(document.getElementById("unitPrice").value);
-        const customersPerDay = Number(document.getElementById("customersPerDay").value);
-        const daysPerMonth = Number(document.getElementById("daysPerMonth").value);
-        const costRate = Number(document.getElementById("costRate").value) / 100;
-        const laborCost = Number(document.getElementById("laborCost").value);
-        const rent = Number(document.getElementById("rent").value);
-        const otherCost = Number(document.getElementById("otherCost").value);
-        const royaltyType = document.getElementById("royaltyType").value;
-        const initialInvestment = Number(document.getElementById("initialInvestment").value);
-        
-        // 月間売上
-        const monthlySales = unitPrice * customersPerDay * daysPerMonth;
-        
-        // 原価
-        const cost = monthlySales * costRate;
-        
-        // ロイヤリティ
-        let royalty = 0;
-        if (royaltyType === "fixed") {
-          const fixedRoyalty = Number(document.getElementById("fixedRoyalty").value);
-          royalty = fixedRoyalty * 10000;
-        } else {
-          const percentageRoyalty = Number(document.getElementById("percentageRoyalty").value) / 100;
-          royalty = monthlySales * percentageRoyalty;
-        }
-        
-        // 経費合計
-        const totalExpenses = cost + laborCost * 10000 + rent * 10000 + otherCost * 10000 + royalty;
-        
-        // 営業利益
-        const profit = monthlySales - totalExpenses;
-        
-        // 利益率
-        const profitMargin = profit / monthlySales * 100;
-        
-        // 回収期間（月）
-        const paybackMonths = profit > 0 ? (initialInvestment * 10000) / profit : "計算不可";
-        
-        // 年間利益
-        const annualProfit = profit * 12;
-        
-        // 結果グリッドの作成
-        const resultsGrid = document.getElementById('resultsGrid');
-        resultsGrid.innerHTML = '';
-        
-        // 結果の項目を追加
-        addResultItem(resultsGrid, '月間売上', formatCurrency(monthlySales));
-        addResultItem(resultsGrid, '原価', formatCurrency(cost));
-        addResultItem(resultsGrid, '人件費', formatCurrency(laborCost * 10000));
-        addResultItem(resultsGrid, '家賃', formatCurrency(rent * 10000));
-        addResultItem(resultsGrid, 'その他経費', formatCurrency(otherCost * 10000));
-        addResultItem(resultsGrid, 'ロイヤリティ', formatCurrency(royalty));
-        addResultItem(resultsGrid, '経費合計', formatCurrency(totalExpenses));
-        addResultItem(resultsGrid, '月間営業利益', formatCurrency(profit), true);
-        addResultItem(resultsGrid, '利益率', formatPercentage(profitMargin));
-        addResultItem(resultsGrid, '年間利益', formatCurrency(annualProfit));
-        addResultItem(resultsGrid, '投資回収期間', typeof paybackMonths === 'number' ? formatMonths(paybackMonths) : paybackMonths);
-        
-        // 利益バーのアニメーション
-        const maxPossibleSales = unitPrice * customersPerDay * 31; // 最大可能売上（31日営業と仮定）
-        const profitPercentage = profit / maxPossibleSales * 100;
-        const profitBar = document.createElement('div');
-        profitBar.className = 'profit-bar ' + (profit < 0 ? 'negative' : '');
-        profitBar.style.width = Math.abs(profitPercentage) + '%';
-        
-        // 結果サマリーの表示
-        const resultSummary = document.getElementById('resultSummary');
-        if (profit > 0) {
-          resultSummary.innerHTML = `月間 <span style="color:var(--success)">${formatCurrency(profit)}</span> の利益が見込めます`;
-        } else {
-          resultSummary.innerHTML = `月間 <span style="color:var(--danger)">${formatCurrency(Math.abs(profit))}</span> の損失が見込まれます`;
-        }
-        
-        // 回収期間のビジュアル表示
-        const paybackProgress = document.getElementById('paybackProgress');
-        const paybackTarget = document.getElementById('paybackTarget');
-        
-        if (typeof paybackMonths === 'number') {
-          const maxTarget = 36; // 3年を目標とする
-          const progressPercentage = Math.min(paybackMonths / maxTarget * 100, 100);
-          paybackProgress.style.width = progressPercentage + '%';
-          paybackTarget.textContent = maxTarget + 'ヶ月';
-        } else {
-          paybackProgress.style.width = '0%';
-          paybackTarget.textContent = '回収不可';
-        }
-        
-        // 結果を表示
-        hideLoading();
-      }, 500);
-    }
-
-    function addResultItem(container, label, value, highlight = false) {
-      const item = document.createElement('div');
-      item.className = 'result-item' + (highlight ? ' highlight' : '');
-      
-      const title = document.createElement('h3');
-      title.textContent = label;
-      
-      const valueEl = document.createElement('p');
-      valueEl.textContent = value;
-      
-      item.appendChild(title);
-      item.appendChild(valueEl);
-      
-      container.appendChild(item);
-    }
+    const btnApt = document.getElementById('btnApt');
+    const btnHouse = document.getElementById('btnHouse');
+    const aptItems = document.querySelectorAll('.flow.apt');
+    const houseItems = document.querySelectorAll('.flow.house');
+    btnApt.addEventListener('click', () => {
+      btnApt.classList.add('selected');
+      btnHouse.classList.remove('selected');
+      aptItems.forEach(el => el.classList.remove('hidden'));
+      houseItems.forEach(el => el.classList.add('hidden'));
+    });
+    btnHouse.addEventListener('click', () => {
+      btnHouse.classList.add('selected');
+      btnApt.classList.remove('selected');
+      houseItems.forEach(el => el.classList.remove('hidden'));
+      aptItems.forEach(el => el.classList.add('hidden'));
+    });
   </script>
 </body>
 </html>
