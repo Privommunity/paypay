@@ -149,19 +149,6 @@
       box-shadow: 0 6px 8px rgba(0,0,0,0.15);
       background: #ff4c4c;
     }
-    .hint {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      margin: 5px 0;
-    }
-    .hand-icon {
-      position: absolute;
-      right: 10%;
-      bottom: 20%;
-      width: 30px;
-      height: 30px;
-    }
     .final-note {
       text-align: center;
       margin-top: 15px;
@@ -182,8 +169,8 @@
       <div class="step-content">
         <p>下のボタンをタップしてPayPay支払い画面を開きます</p>
         <div class="image-container">
-          <img src="1.png" alt="PayPay支払い画面">
-          <span class="caption">N.Kusakaさんに3,600円送る画面</span>
+          <img src="1.png" alt="ホーム画面">
+          <span class="caption">図1: ホーム画面</span>
         </div>
       </div>
     </div>
@@ -195,9 +182,9 @@
       </div>
       <div class="step-content">
         <p>「メッセージを書く」ボタンをタップします</p>
-        <div class="image-container hint">
-          <img src="2.png" alt="メッセージを書くボタン">
-          <span class="caption">「メッセージを書く」をここでタップ</span>
+        <div class="image-container">
+          <img src="2t.png" alt="メッセージを書くタップ位置">
+          <span class="caption">図2: メッセージを書くタップ位置</span>
         </div>
       </div>
     </div>
@@ -205,13 +192,17 @@
     <div class="step">
       <div class="step-header">
         <div class="step-number">3</div>
-        <h2 class="step-title">メッセージ入力欄をタップ</h2>
+        <h2 class="step-title">メッセージ追加画面</h2>
       </div>
       <div class="step-content">
-        <p>表示された赤い画面の入力欄をタップします</p>
-        <div class="image-container hint">
-          <img src="3.png" alt="メッセージ入力欄">
-          <span class="caption">入力欄をタップ</span>
+        <p>入力欄をタップし、メッセージを入力します</p>
+        <div class="image-container">
+          <img src="3.png" alt="メッセージ入力画面">
+          <span class="caption">図3: メッセージ追加画面</span>
+        </div>
+        <div class="image-container">
+          <img src="3t.png" alt="メッセージ入力タップ位置">
+          <span class="caption">図4: メッセージ入力タップ位置</span>
         </div>
       </div>
     </div>
@@ -226,28 +217,20 @@
           <button class="choice-tab active" onclick="openChoice(event, 'apartment')">アパート等居住者</button>
           <button class="choice-tab" onclick="openChoice(event, 'house')">戸建て世帯主</button>
         </div>
-        
         <div id="apartment" class="choice-panel active">
-          <p class="important">アパート・マンションにお住まいの方は：</p>
+          <p class="important">アパート・マンションにお住まいの方：</p>
           <p>物件名・部屋番号・お名前を入力してください</p>
-          <div class="note">
-            例：恵み野アパート101号 石巻太郎
-          </div>
           <div class="image-container">
-            <img src="5.png" alt="アパート入力例">
-            <span class="caption">入力例（アパート居住者）</span>
+            <img src="4-1.png" alt="アパート入力例">
+            <span class="caption">図5: アパート入力例</span>
           </div>
         </div>
-        
         <div id="house" class="choice-panel">
-          <p class="important">戸建てにお住まいの方は：</p>
+          <p class="important">戸建てにお住まいの方：</p>
           <p>お名前のみ入力してください</p>
-          <div class="note">
-            例：石巻太郎
-          </div>
           <div class="image-container">
-            <img src="7.png" alt="戸建て入力例">
-            <span class="caption">入力例（戸建て世帯主）</span>
+            <img src="4-2.png" alt="戸建て入力例">
+            <span class="caption">図6: 戸建て入力例</span>
           </div>
         </div>
       </div>
@@ -256,13 +239,13 @@
     <div class="step">
       <div class="step-header">
         <div class="step-number">5</div>
-        <h2 class="step-title">「メッセージを追加する」をタップ</h2>
+        <h2 class="step-title">メッセージを追加する</h2>
       </div>
       <div class="step-content">
         <p>青い「メッセージを追加する」ボタンをタップします</p>
-        <div class="image-container hint">
-          <img src="6.png" alt="メッセージを追加するボタン">
-          <span class="caption">「メッセージを追加する」をタップ</span>
+        <div class="image-container">
+          <img src="3t.png" alt="メッセージを追加するタップ位置">
+          <span class="caption">図7: メッセージを追加するタップ位置</span>
         </div>
       </div>
     </div>
@@ -273,10 +256,10 @@
         <h2 class="step-title">支払いを確定する</h2>
       </div>
       <div class="step-content">
-        <p>内容を確認し、青い「3,600円を送る」ボタンをタップして支払いを完了します</p>
-        <div class="image-container hint">
-          <img src="10.png" alt="支払い確定画面">
-          <span class="caption">「3,600円を送る」をタップ</span>
+        <p>内容を確認し、青い「3600円を送る」ボタンをタップして支払い完了</p>
+        <div class="image-container">
+          <img src="5-1t.png" alt="支払い確定タップ位置">
+          <span class="caption">図8: 支払い確定タップ位置</span>
         </div>
         <div class="note">
           支払い完了後、町内会の集金担当者が後日、領収書をポストに投函します
@@ -285,40 +268,18 @@
     </div>
 
     <a href="https://qr.paypay.ne.jp/p2p01_qlGKCaiSgtRyR7Tz" class="action-btn">支払い手続きを始める</a>
-    
     <p class="final-note">※ボタンをタップするとPayPay支払い画面が開きます</p>
   </div>
 
   <script>
     function openChoice(evt, choiceName) {
-      // パネルをすべて非表示
       var panels = document.getElementsByClassName("choice-panel");
-      for (var i = 0; i < panels.length; i++) {
-        panels[i].classList.remove("active");
-      }
-      
-      // タブのアクティブ状態をリセット
+      for (var i = 0; i < panels.length; i++) panels[i].classList.remove("active");
       var tabs = document.getElementsByClassName("choice-tab");
-      for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove("active");
-      }
-      
-      // 選択されたパネルとタブをアクティブに
+      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
       document.getElementById(choiceName).classList.add("active");
       evt.currentTarget.classList.add("active");
     }
-    
-    // 画像の読み込みエラー処理を追加
-    window.onload = function() {
-      // 画像リスト
-      const imageNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-      
-      // 画像のプリロード
-      imageNumbers.forEach(num => {
-        const img = new Image();
-        img.src = num + '.png';
-      });
-    };
   </script>
 </body>
 </html>
