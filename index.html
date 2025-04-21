@@ -155,9 +155,53 @@
       color: #666;
       font-size: 14px;
     }
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 90%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .modal-content p {
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+    .modal-close {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #ff6060;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-content">
+      <p>アクセスありがとうございます。<br>PayPayでのお支払い方法・ご注意事項を記載しています。<br>決済へと進むには末尾の【支払い手続きを始める】をタップしてください。</p>
+      <button id="modalClose" class="modal-close">OK</button>
+    </div>
+  </div>
+
   <div class="container">
     <h1>町内会費をPayPayで支払う方法</h1>
     
@@ -198,7 +242,7 @@
         <p>入力欄をタップし、メッセージを入力します</p>
         <div class="image-container">
           <img src="3t.png" alt="メッセージ入力タップ位置">
-          <span class="caption">図4: メッセージ入力タップ位置</span>
+          <span class="caption">図3: メッセージ入力タップ位置</span>
         </div>
       </div>
     </div>
@@ -218,7 +262,7 @@
           <p>物件名・部屋番号・お名前を入力してください</p>
           <div class="image-container">
             <img src="4-1.png" alt="アパート入力例">
-            <span class="caption">図5: アパート入力例</span>
+            <span class="caption">図4: アパート入力例</span>
           </div>
         </div>
         <div id="house" class="choice-panel">
@@ -226,7 +270,7 @@
           <p>お名前のみ入力してください</p>
           <div class="image-container">
             <img src="4-2.png" alt="戸建て入力例">
-            <span class="caption">図6: 戸建て入力例</span>
+            <span class="caption">図5: 戸建て入力例</span>
           </div>
         </div>
       </div>
@@ -241,7 +285,7 @@
         <p>青い「メッセージを追加する」ボタンをタップします</p>
         <div class="image-container">
           <img src="4-1t.png" alt="メッセージを追加するタップ位置">
-          <span class="caption">図7: メッセージを追加するタップ位置</span>
+          <span class="caption">図6: メッセージを追加するタップ位置</span>
         </div>
       </div>
     </div>
@@ -255,7 +299,7 @@
         <p>内容を確認し、青い「3600円を送る」ボタンをタップして支払い完了</p>
         <div class="image-container">
           <img src="5-1t.png" alt="支払い確定タップ位置">
-          <span class="caption">図8: 支払い確定タップ位置</span>
+          <span class="caption">図7: 支払い確定タップ位置</span>
         </div>
         <div class="note">
           支払い完了後、町内会の集金担当者が後日、領収書をポストに投函します
@@ -268,6 +312,18 @@
   </div>
 
   <script>
+    // モーダルの表示・非表示
+    window.onload = function() {
+      var modal = document.getElementById('modal');
+      var closeBtn = document.getElementById('modalClose');
+      // モーダルを表示
+      modal.style.display = 'flex';
+      // 閉じるボタン
+      closeBtn.onclick = function() {
+        modal.style.display = 'none';
+      };
+    };
+    // タブ切替
     function openChoice(evt, choiceName) {
       var panels = document.getElementsByClassName("choice-panel");
       for (var i = 0; i < panels.length; i++) panels[i].classList.remove("active");
