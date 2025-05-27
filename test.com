@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>町内会費 PayPay 決済手順</title>
+  <style>
+    body { font-family: "Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif; margin: 0; padding: 0; background: #f5f5f5; color: #333; line-height: 1.6; }
+    .container { max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { font-size: 22px; text-align: center; margin-bottom: 20px; color: #333; padding-bottom: 10px; border-bottom: 2px solid #ff6060; }
+    .step { background: #fff; border-radius: 8px; padding: 15px; margin-bottom: 20px; border: 1px solid #eee; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .step-header { display: flex; align-items: center; margin-bottom: 10px; }
+    .step-number { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: #ff6060; color: white; border-radius: 50%; margin-right: 10px; font-weight: bold; font-size: 14px; }
+    .step-title { font-size: 18px; font-weight: bold; color: #333; margin: 0; }
+    .step-content { padding-left: 36px; }
+    .image-container { display: block; margin: 10px 0; text-align: center; }
+    img { max-width: 100%; height: auto; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .caption { display: block; text-align: center; color: #666; font-size: 13px; margin-top: 5px; }
+    .note { background: #fef9e7; border-left: 3px solid #fcdb6e; padding: 10px 15px; margin: 15px 0; font-size: 14px; border-radius: 4px; }
+    .important { font-weight: bold; color: #e74c3c; }
+    .choice-tabs { display: flex; margin: 15px 0; border-bottom: 1px solid #ddd; }
+    .choice-tab { padding: 8px 15px; background: #f5f5f5; border: 1px solid #ddd; border-bottom: none; border-radius: 6px 6px 0 0; cursor: pointer; margin-right: 5px; font-size: 14px; }
+    .choice-tab.active { background: #fff; border-bottom: 1px solid #fff; margin-bottom: -1px; color: #ff6060; font-weight: bold; }
+    .choice-panel { display: none; padding: 15px; border: 1px solid #ddd; border-top: none; border-radius: 0 0 6px 6px; }
+    .choice-panel.active { display: block; }
+
+    .action-btn {
+      display: block; width: 80%; max-width: 300px; margin: 25px auto; padding: 15px;
+      background: #ff6060; color: white; text-align: center; border-radius: 50px; font-size: 18px;
+      font-weight: bold; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+      animation: pulse 1.5s infinite, bounce 2.5s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,96,96,0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255,96,96,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,96,96,0); }
+    }
+    @keyframes bounce {
+      0%,20%,50%,80%,100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+    .action-btn:hover {
+      transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 12px rgba(255,76,76,0.3);
+      background: #ff4c4c; animation-play-state: paused;
+    }
+    .action-btn:before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: rgba(255,255,255,0.2); transform: rotate(45deg); animation: shine 3s infinite;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      40%,100% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    .inline-btn-blue { display: inline-block; padding: 6px 16px; background: #007bff; color: #fff; border: none; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin: 0 4px; }
+    .inline-btn-pink { display: inline-block; padding: 6px 16px; background: #fff0f0; color: #ff6060; border: 1px solid #ff6060; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 4px; }
+    .final-note { text-align: center; margin-top: 15px; color: #666; font-size: 14px; }
+
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content { background: white; padding: 20px; border-radius: 8px; max-width: 90%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); text-align: center; }
+    .modal-content p { margin-bottom: 20px; font-size: 16px; color: #333; }
+    .modal-close { display: inline-block; padding: 10px 20px; background: #ff6060; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <!-- 住まい種別選択モーダル -->
+  <div id="typeModal" class="modal-overlay">
+    <div class="modal-content">
+      <p>お住まいの種別をお選びください。</p>
+      <button id="resApartment" class="inline-btn-pink">アパート等居住者</button>
+      <button id="resHouse"     class="inline-btn-blue">戸建て世帯主</button>
+    </div>
+  </div>
+
+  <!-- PayPay 注意モーダル -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-content">
+      <p>はじめにPayPayでのお支払いに際しご注意事項をご案内致します。<br>内容をご確認の上、末尾の【支払い手続きを始める】をタップすると支払い画面に移動します。</p>
+      <button id="modalClose" class="modal-close">OK</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>町内会費をPayPayで支払う方法</h1>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <h2 class="step-title">支払いページを開く（このページの末尾より）</h2>
+      </div>
+      <div class="step-content">
+        <div class="image-container">
+          <img src="1.png" alt="ホーム画面">
+          <span class="caption">図1: ホーム画面</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <h2 class="step-title">メッセージを書く</h2>
+      </div>
+      <div class="step-content">
+        <p><span class="inline-btn-pink">メッセージを書く</span>ボタンをタップします</p>
+        <div class="image-container">
+          <img src="2t.gif" alt="メッセージを書くタップ位置">
+          <span class="caption">図2: メッセージを書くタップ位置</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <h2 class="step-title">必要な情報を入力</h2>
+      </div>
+      <div class="step-content">
+        <div class="choice-tabs">
+          <button class="choice-tab" onclick="openChoice(event,'apartment')">アパート等居住者</button>
+          <button class="choice-tab" onclick="openChoice(event,'house')">戸建て世帯主</button>
+        </div>
+        <div id="apartment" class="choice-panel">
+          <p class="important">アパート・マンションにお住まいの方：</p>
+          <p>物件名・部屋番号・お名前を入力してください</p>
+          <div class="image-container">
+            <img src="4-1.gif" alt="アパート入力例">
+            <span class="caption">図4: アパート入力例</span>
+          </div>
+        </div>
+        <div id="house" class="choice-panel">
+          <p class="important">戸建てにお住まいの方：</p>
+          <p>世帯主様名を入力してください</p>
+          <div class="image-container">
+            <img src="4-2.gif" alt="戸建て入力例">
+            <span class="caption">図5: 戸建て入力例</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <h2 class="step-title">メッセージを追加する</h2>
+      </div>
+      <div class="step-content">
+        <p><span class="inline-btn-blue">メッセージを追加する</span> をタップします</p>
+        <div class="image-container">
+          <img src="4-1t.gif" alt="メッセージを追加するタップ位置">
+          <span class="caption">図6: メッセージを追加するタップ位置</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <h2 class="step-title">支払いを確定する</h2>
+      </div>
+      <div class="step-content">
+        <p>内容を確認し、<span class="inline-btn-blue"><span id="feeAmount">––</span>円を送る</span>をタップして支払い完了</p>
+        <div class="image-container">
+          <img src="5-1t.gif" alt="支払い確定タップ位置">
+          <span class="caption">図7: 支払い確定タップ位置</span>
+        </div>
+        <div class="note">
+          支払い完了後、町内会の集金担当者が後日、領収書をポストに投函します
+        </div>
+      </div>
+    </div>
+
+    <a id="actionLink" href="#" class="action-btn">支払い手続きを始める</a>
+    <p class="final-note">※ボタンをタップするとPayPay支払い画面が開きます</p>
+  </div>
+
+  <script>
+    // 要素取得
+    const typeModal   = document.getElementById('typeModal');
+    const payModal    = document.getElementById('modal');
+    const closeBtn    = document.getElementById('modalClose');
+    const feeAmount   = document.getElementById('feeAmount');
+    const actionLink  = document.getElementById('actionLink');
+
+    // 選択ボタン
+    document.getElementById('resApartment').onclick = () => selectResidence('apartment');
+    document.getElementById('resHouse').onclick     = () => selectResidence('house');
+
+    function selectResidence(type) {
+      // タブ切り替え
+      document.querySelectorAll('.choice-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.choice-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(type).classList.add('active');
+      document.querySelector(`.choice-tab[onclick*="'${type}'"]`).classList.add('active');
+
+      // 金額とURLをセット
+      const apartmentFee = 1800;
+      const houseFee     = 3600;
+      feeAmount.textContent = type === 'apartment' ? apartmentFee : houseFee;
+      actionLink.href = type === 'apartment'
+        ? 'https://sample-apartment.com'
+        : 'https://sample-house.com';
+
+      // モーダル制御
+      typeModal.style.display = 'none';
+      payModal.style.display  = 'flex';
+    }
+
+    // PayPay注意モーダルの OK
+    closeBtn.onclick = () => payModal.style.display = 'none';
+
+    // 初回ロードで「住まい選択モーダル」を表示
+    window.onload = () => {
+      typeModal.style.display = 'flex';
+    };
+
+    // タブ切り替え関数（手動で呼び出す場合）
+    function openChoice(evt, choiceName) {
+      document.querySelectorAll('.choice-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.choice-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(choiceName).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>
