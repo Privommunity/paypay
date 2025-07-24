@@ -42,6 +42,8 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      border: none;
       /* アニメーション追加 */
       animation: pulse 1.5s infinite, bounce 2.5s infinite;
     }
@@ -88,19 +90,127 @@
     .inline-btn-blue { display: inline-block; padding: 6px 16px; background: #007bff; color: #fff; border: none; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.15); margin: 0 4px; }
     .inline-btn-pink { display: inline-block; padding: 6px 16px; background: #fff0f0; color: #ff6060; border: 1px solid #ff6060; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 4px; }
     .final-note { text-align: center; margin-top: 15px; color: #666; font-size: 14px; }
+    
     /* Modal styles */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-    .modal-content { background: white; padding: 20px; border-radius: 8px; max-width: 90%; box-shadow: 0 2px 10px rgba(0,0,0,0.2); text-align: center; }
-    .modal-content p { margin-bottom: 20px; font-size: 16px; color: #333; }
-    .modal-close { display: inline-block; padding: 10px 20px; background: #ff6060; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .modal-overlay { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0,0,0,0.5); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      z-index: 1000; 
+    }
+    .modal-content { 
+      background: white; 
+      padding: 20px; 
+      border-radius: 8px; 
+      max-width: 90%; 
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2); 
+      text-align: center; 
+    }
+    .modal-content p { 
+      margin-bottom: 20px; 
+      font-size: 16px; 
+      color: #333; 
+    }
+    .modal-close { 
+      display: inline-block; 
+      padding: 10px 20px; 
+      background: #ff6060; 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 14px; 
+    }
+
+    /* 確認ダイアログのスタイル */
+    .confirmation-modal .modal-content {
+      max-width: 400px;
+      padding: 30px;
+    }
+    .confirmation-modal h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 20px;
+    }
+    .confirmation-modal p {
+      margin-bottom: 25px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .choice-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .choice-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+    }
+    .choice-btn.apartment {
+      background: #007bff;
+      color: white;
+    }
+    .choice-btn.apartment:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+    }
+    .choice-btn.house {
+      background: #28a745;
+      color: white;
+    }
+    .choice-btn.house:hover {
+      background: #1e7e34;
+      transform: translateY(-2px);
+    }
+    .choice-btn.cancel {
+      background: #6c757d;
+      color: white;
+    }
+    .choice-btn.cancel:hover {
+      background: #545b62;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
-  <!-- Modal -->
+  <!-- 初期モーダル -->
   <div id="modal" class="modal-overlay">
     <div class="modal-content">
       <p>はじめにPayPayでのお支払いに際しご注意事項をご案内致します。<br>内容をご確認の上、末尾の【支払い手続きを始める】をタップすると支払い画面に移動します。</p>
       <button id="modalClose" class="modal-close">OK</button>
+    </div>
+  </div>
+
+  <!-- 確認ダイアログ -->
+  <div id="confirmationModal" class="modal-overlay confirmation-modal" style="display: none;">
+    <div class="modal-content">
+      <h3>住居タイプの確認</h3>
+      <p>お支払いを進める前に、お住まいのタイプを確認してください。<br>請求金額が異なりますのでご注意ください。</p>
+      <div class="choice-buttons">
+        <button class="choice-btn apartment" onclick="proceedToPayment('apartment')">
+          アパート・マンション
+        </button>
+        <button class="choice-btn house" onclick="proceedToPayment('house')">
+          戸建て
+        </button>
+        <button class="choice-btn cancel" onclick="closeConfirmationModal()">
+          キャンセル
+        </button>
+      </div>
     </div>
   </div>
 
@@ -133,8 +243,6 @@
         </div>
       </div>
     </div>
-
-   
 
     <div class="step">
       <div class="step-header">
@@ -185,7 +293,7 @@
         <h2 class="step-title">支払いを確定する</h2>
       </div>
       <div class="step-content">
-        <p>内容を確認し、<span class="inline-btn-blue">4800円を送る</span>をタップして支払い完了</p>
+        <p>内容を確認し、<span class="inline-btn-blue">****円を送る</span>をタップして支払い完了</p>
         <div class="image-container">
           <img src="5-1t.gif" alt="支払い確定タップ位置">
           <span class="caption">図7: 支払い確定タップ位置</span>
@@ -196,13 +304,56 @@
       </div>
     </div>
 
-    <a href="https://qr.paypay.ne.jp/p2p01_qlGKCaiSgtRyR7Tz" class="action-btn">支払い手続きを始める</a>
-    <p class="final-note">※ボタンをタップするとPayPay支払い画面が開きます</p>
+    <button id="paymentBtn" class="action-btn" onclick="showConfirmationModal()">支払い手続きを始める</button>
+    <p class="final-note">※ボタンをタップすると住居タイプの確認後、PayPay支払い画面が開きます</p>
   </div>
 
   <script>
-    window.onload = function() { var modal = document.getElementById('modal'), closeBtn = document.getElementById('modalClose'); modal.style.display = 'flex'; closeBtn.onclick = function() { modal.style.display = 'none'; }; };
-    function openChoice(evt, choiceName) { var panels = document.getElementsByClassName("choice-panel"); for (var i=0; i<panels.length; i++) panels[i].classList.remove("active"); var tabs = document.getElementsByClassName("choice-tab"); for (var i=0; i<tabs.length; i++) tabs[i].classList.remove("active"); document.getElementById(choiceName).classList.add("active"); evt.currentTarget.classList.add("active"); }
+    // PayPayのURL設定
+    const paymentUrls = {
+      apartment: "https://qr.paypay.ne.jp/p2p01_KWLvKhvlR4SeH4yV",
+      house: "https://qr.paypay.ne.jp/p2p01_fXXaHsNDrgTm9H9T"
+    };
+
+    window.onload = function() { 
+      var modal = document.getElementById('modal'), 
+          closeBtn = document.getElementById('modalClose'); 
+      modal.style.display = 'flex'; 
+      closeBtn.onclick = function() { 
+        modal.style.display = 'none'; 
+      }; 
+    };
+
+    function openChoice(evt, choiceName) { 
+      var panels = document.getElementsByClassName("choice-panel"); 
+      for (var i=0; i<panels.length; i++) panels[i].classList.remove("active"); 
+      var tabs = document.getElementsByClassName("choice-tab"); 
+      for (var i=0; i<tabs.length; i++) tabs[i].classList.remove("active"); 
+      document.getElementById(choiceName).classList.add("active"); 
+      evt.currentTarget.classList.add("active"); 
+    }
+
+    function showConfirmationModal() {
+      document.getElementById('confirmationModal').style.display = 'flex';
+    }
+
+    function closeConfirmationModal() {
+      document.getElementById('confirmationModal').style.display = 'none';
+    }
+
+    function proceedToPayment(choiceType) {
+      // 確認ダイアログを閉じる
+      closeConfirmationModal();
+      
+      // 選択されたタイプに応じてPayPayページに遷移
+      const url = paymentUrls[choiceType];
+      if (url) {
+        window.open(url, '_blank');
+      } else {
+        alert('エラー: 支払いURLが設定されていません。');
+      }
+    }
   </script>
 </body>
 </html>
+
