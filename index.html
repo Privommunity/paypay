@@ -188,17 +188,59 @@
       line-height: 1.5;
     }
     
+    /* スマホフレーム風デザイン */
+    .phone-frame {
+      display: inline-block;
+      background: #2c2c2c;
+      border-radius: 25px;
+      padding: 15px 8px;
+      margin: 10px auto;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      position: relative;
+      max-width: 200px;
+    }
+    
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 4px;
+      background: #666;
+      border-radius: 2px;
+    }
+    
+    .phone-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      border: 2px solid #666;
+      border-radius: 50%;
+    }
+    
+    .phone-screen {
+      background: #000;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .phone-screen img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 18px;
+    }
+    
     .image-container { 
       margin: 15px 0; 
       text-align: center; 
-    }
-    
-    img { 
-      max-width: 90%; 
-      height: auto; 
-      border: 1px solid #eee; 
-      border-radius: 8px; 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
     }
     
     .caption { 
@@ -206,7 +248,7 @@
       text-align: center; 
       color: #666; 
       font-size: 11px; 
-      margin-top: 5px; 
+      margin-top: 8px; 
     }
     
     .choice-tabs { 
@@ -464,12 +506,19 @@
         min-height: 60px;
       }
       
-      .image-container {
-        margin: 10px 0;
+      .phone-frame {
+        max-width: 160px;
+        padding: 12px 6px;
       }
       
-      img {
-        max-width: 85%;
+      .phone-frame::before {
+        width: 40px;
+        height: 3px;
+      }
+      
+      .phone-frame::after {
+        width: 25px;
+        height: 25px;
       }
     }
     
@@ -490,6 +539,41 @@
       
       .note {
         padding: 8px;
+        font-size: 11px;
+      }
+      
+      .phone-frame {
+        max-width: 140px;
+        padding: 10px 5px;
+        margin: 8px auto;
+      }
+    }
+    
+    /* 横向き対応 */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .modal-body {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px;
+      }
+      
+      .step-description {
+        flex: 1;
+        margin-right: 15px;
+        text-align: left;
+      }
+      
+      .image-container {
+        flex-shrink: 0;
+        margin: 0;
+      }
+      
+      .phone-frame {
+        max-width: 120px;
+      }
+      
+      .choice-tabs, .choice-panel {
         font-size: 11px;
       }
     }
@@ -570,8 +654,12 @@
             このページの最後にある「支払い手続きを始める」ボタンをタップして、PayPay支払いページを開きます。
           </div>
           <div class="image-container">
-            <img src="1 (20).png" alt="ホーム画面">
-            <span class="caption">図1: ホーム画面</span>
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <img src="1 (20).png" alt="ホーム画面">
+              </div>
+            </div>
+            <span class="caption">図1: PayPayホーム画面</span>
           </div>
         `
       },
@@ -583,8 +671,12 @@
             PayPay画面で<span class="inline-btn-pink">メッセージを書く</span>ボタンをタップします。
           </div>
           <div class="image-container">
-            <img src="2t.gif" alt="メッセージを書くタップ位置">
-            <span class="caption">図2: メッセージを書くタップ位置</span>
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <img src="2t.gif" alt="メッセージを書くタップ位置">
+              </div>
+            </div>
+            <span class="caption">図2: メッセージを書くボタンをタップ</span>
           </div>
         `
       },
@@ -603,16 +695,24 @@
             <p class="important">アパート・マンションにお住まいの方：</p>
             <p style="font-size: 12px; margin-bottom: 10px;">物件名・部屋番号・お名前を入力してください</p>
             <div class="image-container">
-              <img src="4-1.gif" alt="アパート入力例">
-              <span class="caption">図4: アパート入力例</span>
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <img src="4-1.gif" alt="アパート入力例">
+                </div>
+              </div>
+              <span class="caption">図4: アパート情報入力例</span>
             </div>
           </div>
           <div id="house" class="choice-panel">
             <p class="important">戸建てにお住まいの方：</p>
             <p style="font-size: 12px; margin-bottom: 10px;">世帯主様名を入力してください</p>
             <div class="image-container">
-              <img src="4-2.gif" alt="戸建て入力例">
-              <span class="caption">図5: 戸建て入力例</span>
+              <div class="phone-frame">
+                <div class="phone-screen">
+                  <img src="4-2.gif" alt="戸建て入力例">
+                </div>
+              </div>
+              <span class="caption">図5: 戸建て情報入力例</span>
             </div>
           </div>
         `
@@ -625,8 +725,12 @@
             入力が完了したら<span class="inline-btn-blue">メッセージを追加する</span>をタップします。
           </div>
           <div class="image-container">
-            <img src="4-1t.gif" alt="メッセージを追加するタップ位置">
-            <span class="caption">図6: メッセージを追加するタップ位置</span>
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <img src="4-1t.gif" alt="メッセージを追加するタップ位置">
+              </div>
+            </div>
+            <span class="caption">図6: メッセージを追加するボタンをタップ</span>
           </div>
         `
       },
@@ -638,8 +742,12 @@
             内容を確認し、<span class="inline-btn-blue">****円を送る</span>をタップして支払いを完了します。
           </div>
           <div class="image-container">
-            <img src="5-1t.gif" alt="支払い確定タップ位置">
-            <span class="caption">図7: 支払い確定タップ位置</span>
+            <div class="phone-frame">
+              <div class="phone-screen">
+                <img src="5-1t.gif" alt="支払い確定タップ位置">
+              </div>
+            </div>
+            <span class="caption">図7: 支払い確定ボタンをタップ</span>
           </div>
           <div class="note">
             支払い完了後、町内会の集金担当者が後日、領収書をポストに投函します
